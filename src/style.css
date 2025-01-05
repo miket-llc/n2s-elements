@@ -11,7 +11,25 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* These properties prevent auto text resizing in mobile browsers
+     - webkit prefix for Safari/Chrome
+     - unprefixed for future compatibility
+     - keep both despite warnings */
   -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+  /* GitHub Dark Theme Colors */
+  --gh-dark-bg: #0d1117;
+  --gh-dark-header: #161b22;
+  --gh-dark-text: #c9d1d9;
+  --gh-dark-border: #30363d;
+  --gh-dark-button-hover: #30363d;
+  
+  /* Traffic Light Colors (macOS) */
+  --tl-close: #ff5f57;
+  --tl-minimize: #febc2e;
+  --tl-maximize: #28c840;
 }
 
 a {
@@ -29,6 +47,10 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--gh-dark-bg);
+  color: var(--gh-dark-text);
+  height: 100vh;
+  overflow: hidden; /* Prevent body scroll */
 }
 
 h1 {
@@ -66,11 +88,115 @@ code {
   padding: 2em;
 }
 
+/* Remove max-width restriction from #app */
 #app {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+}
+
+.app-content {
+  height: calc(100vh - 28px); /* Subtract title bar height */
+  margin-top: 28px; /* Match title bar height */
+  overflow-y: auto; /* Enable content scrolling */
+  position: relative;
+}
+
+.main-content > * {
+  width: 100%;
+}
+
+/* Title Bar Styles */
+.titlebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: var(--gh-dark-header);
+  display: flex;
+  align-items: center;
+  padding: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--gh-dark-border);
+}
+
+.titlebar-macos {
+  padding-left: 80px; /* Space for traffic lights */
+}
+
+.titlebar-icon {
+  height: 16px;
+  width: 16px;
+  margin: 0 8px;
+}
+
+.titlebar-icon img {
+  height: 100%;
+  width: 100%;
+}
+
+/* Title Bar Content */
+.titlebar-drag-region {
+  flex: 1;
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+}
+
+.titlebar-title {
+  color: var(--gh-dark-text);
+  font-size: 12px;
+  margin: 0 12px;
+}
+
+/* macOS Traffic Lights */
+.titlebar-controls-macos {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar-controls-macos .titlebar-button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.titlebar-controls-macos .close { background-color: var(--tl-close); }
+.titlebar-controls-macos .minimize { background-color: var(--tl-minimize); }
+.titlebar-controls-macos .maximize { background-color: var(--tl-maximize); }
+
+/* Windows Controls */
+.titlebar-controls-windows {
+  display: flex;
+  align-items: center;
+  -webkit-app-region: no-drag;
+}
+
+.titlebar-controls-windows .titlebar-button {
+  width: 46px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--gh-dark-text);
+  cursor: pointer;
+}
+
+.titlebar-controls-windows .titlebar-button:hover {
+  background-color: var(--gh-dark-button-hover);
+}
+
+.titlebar-controls-windows .close:hover {
+  background-color: #e81123;
 }
 
 @media (prefers-color-scheme: light) {

@@ -42,10 +42,44 @@ let win: BrowserWindow | null = null
 const preload = path.join(__dirname, '../preload/index.mjs')
 const indexHtml = path.join(RENDERER_DIST, 'index.html')
 
+// Add window control handlers
+ipcMain.on('window-control', (event, action) => {
+  const win = BrowserWindow.getFocusedWindow()
+  if (!win) return
+
+  switch (action) {
+    case 'close':
+      win.close()
+      break
+    case 'minimize':
+      win.minimize()
+      break
+    case 'maximize':
+      win.isMaximized() ? win.unmaximize() : win.maximize()
+      break
+  }
+})
+
+// Add dock click handler for macOS
+app.on('activate', () => {
+  const allWindows = BrowserWindow.getAllWindows()
+  if (allWindows.length) {
+    const win = allWindows[0]
+    if (win.isMinimized()) {
+      win.restore()
+    }
+    win.focus()
+  } else {
+    createWindow()
+  }
+})
+
 async function createWindow() {
   win = new BrowserWindow({
-    title: 'Main window',
+    title: 'N2S Elements',
     icon: path.join(process.env.VITE_PUBLIC, 'favicon.ico'),
+    frame: false,
+    titleBarStyle: 'hidden',
     webPreferences: {
       preload,
       // Warning: Enable nodeIntegration and disable contextIsolation is not secure in production
@@ -57,12 +91,18 @@ async function createWindow() {
     },
   })
 
-  if (VITE_DEV_SERVER_URL) { // #298
-    win.loadURL(VITE_DEV_SERVER_URL)
-    // Open devTool if the app is not packaged
-    win.webContents.openDevTools()
-  } else {
-    win.loadFile(indexHtml)
+  try {
+    if (VITE_DEV_SERVER_URL) {
+      console.log('Loading URL:', VITE_DEV_SERVER_URL)
+      await win.loadURL(VITE_DEV_SERVER_URL)
+      // Open devTool if the app is not packaged
+      win.webContents.openDevTools()
+    } else {
+      console.log('Loading file:', indexHtml)
+      await win.loadFile(indexHtml)
+    }
+  } catch (e) {
+    console.error('Failed to load window:', e)
   }
 
   // Test actively push message to the Electron-Renderer
@@ -78,7 +118,13 @@ async function createWindow() {
   // win.webContents.on('will-navigate', (event, url) => { }) #344
 }
 
-app.whenReady().then(createWindow)
+// Remove this line
+// app.whenReady().then(createWindow)
+
+// Keep this one
+app.on('ready', () => {
+  createWindow().catch(console.error)
+})
 
 app.on('window-all-closed', () => {
   win = null
@@ -90,15 +136,6 @@ app.on('second-instance', () => {
     // Focus on the main window if the user tried to open another
     if (win.isMinimized()) win.restore()
     win.focus()
-  }
-})
-
-app.on('activate', () => {
-  const allWindows = BrowserWindow.getAllWindows()
-  if (allWindows.length) {
-    allWindows[0].focus()
-  } else {
-    createWindow()
   }
 })
 
