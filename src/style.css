@@ -148,6 +148,9 @@ code {
   color: var(--gh-dark-text);
   font-size: 12px;
   margin: 0 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* macOS Traffic Lights */
@@ -197,6 +200,36 @@ code {
 
 .titlebar-controls-windows .close:hover {
   background-color: #e81123;
+}
+
+/* Theme styles stay in global CSS */
+.statusbar {
+  background-color: var(--gh-dark-header);
+  border-top: 1px solid var(--gh-dark-border);
+  font-size: 12px;
+  color: var(--gh-dark-text);
+  line-height: 22px;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.status-left, .status-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+  line-height: 22px;
+  height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.status-left span, .status-right span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (prefers-color-scheme: light) {
