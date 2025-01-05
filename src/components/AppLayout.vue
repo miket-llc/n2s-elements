@@ -16,18 +16,25 @@ import StatusBar from './StatusBar.vue'
 <style>
 .app-layout {
   height: 100vh;
+  width: 100vw;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .main-content {
   flex: 1;
-  overflow-y: auto;
-  padding: 20px;
+  display: flex;
+  overflow: hidden;
   background-color: var(--gh-dark-bg);
   width: 100%;
   box-sizing: border-box;
+  margin-top: 28px;    /* Match titlebar height */
+  margin-bottom: 0;    /* Remove bottom margin */
+  padding: 0;
 }
 
 .statusbar {

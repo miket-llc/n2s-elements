@@ -1,13 +1,23 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import CustomTitleBar from './components/CustomTitleBar.vue'
 import AppLayout from './components/AppLayout.vue'
+import SplitPane from './components/SplitPane.vue'
 </script>
 
 <template>
   <CustomTitleBar />
   <AppLayout>
-    <div class="content"></div>
+    <SplitPane :min-width="90" :max-width="600" :default-width="200">
+      <template #left>
+        <div class="left-content">
+          Left Pane
+        </div>
+      </template>
+      <template #right>
+        <div class="right-content">
+          Right Pane
+        </div>
+      </template>
+    </SplitPane>
   </AppLayout>
 </template>
 
@@ -45,5 +55,11 @@ import AppLayout from './components/AppLayout.vue'
   width: 100%;
   height: 100%;
   background-color: var(--gh-dark-bg);
+}
+
+.left-content, .right-content {
+  padding: 16px;
+  height: 100%;
+  box-sizing: border-box;
 }
 </style>
