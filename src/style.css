@@ -19,14 +19,18 @@
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 
-  /* GitHub Dark Theme Colors */
-  --gh-dark-bg: #0d1117;
-  --gh-dark-header: #161b22;
-  --gh-dark-text: #c9d1d9;
-  --gh-dark-border: #30363d;
-  --gh-dark-button-hover: #30363d;
-  --gh-blue: #0969da;
-  
+  /* GitHub Dark Theme Colors - Standard */
+  --gh-dark-bg: #0d1117;           /* Base background */
+  --gh-dark-header: #161b22;       /* Header/toolbar background */
+  --gh-dark-header-active: #21262d; /* Active header state */
+  --gh-dark-text: #c9d1d9;         /* Primary text */
+  --gh-dark-border: #30363d;       /* Borders and dividers */
+  --gh-dark-button-hover: #30363d; /* Button hover state */
+  --gh-blue: #0969da;              /* Primary accent color */
+  --gh-dark-toolbar-bg: #161b22;   /* Match header */
+  --gh-dark-toolbar-button: #21262d;/* Slightly darker for buttons */
+  --gh-dark-toolbar-button-hover: #30363d; /* Match border color */
+
   /* Traffic Light Colors (macOS) */
   --tl-close: #ff5f57;
   --tl-minimize: #febc2e;
@@ -114,12 +118,17 @@ code {
   left: 0;
   right: 0;
   height: 28px;
-  background: var(--gh-dark-header);
+  background: var(--theme-header);
   display: flex;
   align-items: center;
   padding: 0;
   z-index: 1000;
   border-bottom: 1px solid var(--gh-dark-border);
+  transition: background 0.2s ease;
+}
+
+.titlebar.window-active {
+  background: var(--theme-header-active);
 }
 
 .titlebar-macos {
@@ -146,7 +155,7 @@ code {
 }
 
 .titlebar-title {
-  color: var(--gh-dark-text);
+  color: var(--theme-text);
   font-size: 12px;
   margin: 0 12px;
   white-space: nowrap;
@@ -205,11 +214,12 @@ code {
 
 /* Theme styles stay in global CSS */
 .statusbar {
-  background-color: var(--gh-dark-header);
+  background: var(--slack-gradient-2);
   border-top: 1px solid var(--gh-dark-border);
   font-size: 12px;
   color: var(--gh-dark-text);
   line-height: 22px;
+  -webkit-user-select: none;
   user-select: none;
   white-space: nowrap;
   overflow: hidden;
@@ -248,3 +258,32 @@ code {
     background-color: #f9f9f9;
   }
 }
+
+/* Pane Headers */
+.pane-header {
+  background-color: var(--theme-header);
+  border-bottom: 1px solid var(--gh-dark-border);
+  color: var(--gh-dark-text);
+}
+
+.pane-header-toolbar button {
+  padding: 4px 8px;
+  background-color: var(--gh-dark-toolbar-button);
+  border: 1px solid var(--gh-dark-border);
+  border-radius: 4px;
+  color: var(--gh-dark-text);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pane-header-toolbar button:hover {
+  background-color: var(--gh-dark-toolbar-button-hover);
+}
+
+/* Update all GitHub theme references to use Slack theme */
+.titlebar { background-color: var(--theme-header); }
+.titlebar.window-active { background-color: var(--theme-header-active); }
+.titlebar-title { color: var(--theme-text); }
+.pane-header { background-color: var(--theme-header); }
+.pane-resizer:hover::after { background-color: var(--theme-accent); }

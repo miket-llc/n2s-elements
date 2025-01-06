@@ -1,0 +1,12 @@
+:root[data-theme='ellucian'] {
+  --theme-bg: #1C242C;
+  --theme-header: #152028;
+  --theme-header-active: #1A2832;
+  --theme-text: #FFFFFF;
+  --theme-border: #2D363E;
+  --theme-button-hover: #383F45;
+  --theme-accent: #4B2D84;
+  --theme-toolbar-bg: #152028;
+  --theme-toolbar-button: #21262D;
+  --theme-toolbar-button-hover: #2D363E;
+}

@@ -84,15 +84,23 @@ const resetWidth = () => {
 }
 
 .pane-resizer {
-  width: 4px;
-  background-color: var(--gh-dark-header);
+  width: 1px;
+  background-color: var(--gh-dark-border);
   cursor: col-resize;
   flex-shrink: 0;
   height: 100%;
-  transition: background-color 0.2s;
+  position: relative;
+  transition: all 0.2s;
 }
 
-.pane-resizer:hover, .pane-resizer:active {
+.pane-resizer:hover::after,
+.pane-resizer:active::after {
+  content: '';
+  position: absolute;
+  left: -1px; /* Center the 3px highlight over 1px resizer */
+  top: 0;
+  width: 3px;
+  height: 100%;
   background-color: var(--gh-blue);
 }
 </style>

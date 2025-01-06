@@ -1,6 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+import './themes/github-dark.css'
+import './themes/ellucian-dark.css'
 import './style.css'
 
 import './demos/ipc'
@@ -12,3 +14,6 @@ createApp(App)
   .$nextTick(() => {
     postMessage({ payload: 'removeLoading' }, '*')
   })
+
+// Set initial theme
+document.documentElement.setAttribute('data-theme', 'github')

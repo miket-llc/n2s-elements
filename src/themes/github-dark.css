@@ -1,0 +1,12 @@
+:root[data-theme='github'] {
+  --theme-bg: #0d1117;
+  --theme-header: #161b22;
+  --theme-header-active: #21262d;
+  --theme-text: #c9d1d9;
+  --theme-border: #30363d;
+  --theme-button-hover: #30363d;
+  --theme-accent: #0969da;
+  --theme-toolbar-bg: #161b22;
+  --theme-toolbar-button: #21262d;
+  --theme-toolbar-button-hover: #30363d;
+}

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import AppLayout from './components/AppLayout.vue'
 import SplitPane from './components/SplitPane.vue'
+import PaneHeader from './components/PaneHeader.vue'
 </script>
 
 <template>
@@ -9,12 +10,30 @@ import SplitPane from './components/SplitPane.vue'
     <SplitPane :min-width="90" :max-width="600" :default-width="200">
       <template #left>
         <div class="left-content">
-          Left Pane
+          <PaneHeader>
+            <template #title>Pages</template>
+            <template #toolbar>
+              <button>New</button>
+              <button>Refresh</button>
+            </template>
+          </PaneHeader>
+          <div class="pane-content">
+            Left Pane Content
+          </div>
         </div>
       </template>
       <template #right>
         <div class="right-content">
-          Right Pane
+          <PaneHeader>
+            <template #title>Comments</template>
+            <template #toolbar>
+              <button>Sort</button>
+              <button>Filter</button>
+            </template>
+          </PaneHeader>
+          <div class="pane-content">
+            Right Pane Content
+          </div>
         </div>
       </template>
     </SplitPane>
@@ -58,8 +77,15 @@ import SplitPane from './components/SplitPane.vue'
 }
 
 .left-content, .right-content {
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
   height: 100%;
   box-sizing: border-box;
+}
+
+.pane-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
 }
 </style>

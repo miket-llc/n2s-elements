@@ -27,6 +27,16 @@ contextBridge.exposeInMainWorld('os', {
   platform: process.platform
 })
 
+contextBridge.exposeInMainWorld('ipc', {
+  send: (...args: unknown[]) => ipcRenderer.send(...args),
+  on: (channel: string, callback: Function) => {
+    ipcRenderer.on(channel, (_, ...args) => callback(...args))
+  },
+  off: (channel: string, callback: Function) => {
+    ipcRenderer.removeListener(channel, callback)
+  }
+})
+
 // --------- Preload scripts loading ---------
 function domReady(condition: DocumentReadyState[] = ['complete', 'interactive']) {
   return new Promise((resolve) => {

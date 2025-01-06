@@ -60,6 +60,19 @@ ipcMain.on('window-control', (event, action) => {
   }
 })
 
+// Add focus/blur handlers
+app.on('browser-window-focus', () => {
+  console.log('Window focused')
+  const win = BrowserWindow.getFocusedWindow()
+  win?.webContents.send('window-state-changed', true)
+})
+
+app.on('browser-window-blur', () => {
+  console.log('Window blurred')
+  const win = BrowserWindow.getFocusedWindow()
+  win?.webContents.send('window-state-changed', false)
+})
+
 // Add dock click handler for macOS
 app.on('activate', () => {
   const allWindows = BrowserWindow.getAllWindows()
@@ -89,6 +102,14 @@ async function createWindow() {
       // Read more on https://www.electronjs.org/docs/latest/tutorial/context-isolation
       // contextIsolation: false,
     },
+  })
+
+  win.on('focus', () => {
+    win?.webContents.send('window-state-changed', true)
+  })
+
+  win.on('blur', () => {
+    win?.webContents.send('window-state-changed', false)
   })
 
   try {
