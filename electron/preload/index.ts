@@ -28,11 +28,11 @@ contextBridge.exposeInMainWorld('os', {
 })
 
 contextBridge.exposeInMainWorld('ipc', {
-  send: (...args: unknown[]) => ipcRenderer.send(...args),
+  send: (...args: [string, ...any[]]) => ipcRenderer.send(...args),
   on: (channel: string, callback: Function) => {
     ipcRenderer.on(channel, (_, ...args) => callback(...args))
   },
-  off: (channel: string, callback: Function) => {
+  off: (channel: string, callback: (event: Electron.IpcRendererEvent, ...args: any[]) => void) => {
     ipcRenderer.removeListener(channel, callback)
   }
 })

@@ -105,6 +105,41 @@ code {
   margin-top: 28px; /* Match title bar height */
   overflow-y: auto; /* Enable content scrolling */
   position: relative;
+  padding-top: 28px;
+}
+
+/* Logo styles */
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo.electron:hover {
+  filter: drop-shadow(0 0 2em #9FEAF9);
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.vue:hover {
+  filter: drop-shadow(0 0 2em #42b883aa);
+}
+
+/* Content area styles */
+.content {
+  width: 100%;
+  height: 100%;
+  background-color: var(--gh-dark-bg);
+}
+
+/* Utility classes */
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .main-content > * {
