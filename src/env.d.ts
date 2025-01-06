@@ -8,3 +8,29 @@ interface Window {
     platform: string;
   };
 }
+
+interface TreeNode {
+  id: string;
+  label: string;
+  children?: TreeNode[];
+  metadata?: Record<string, any>;
+  isExpanded?: boolean;
+}
+
+interface CommentNode extends TreeNode {
+  author: string;
+  date: string;
+  content: string;
+  metadata?: {
+    edited?: boolean;
+    editDate?: string;
+    likes?: number;
+    attachments?: number;
+  }
+}
+
+interface TreeViewProps {
+  nodes: TreeNode[];
+  onNodeClick?: (node: TreeNode) => void;
+  onNodeToggle?: (node: TreeNode) => void;
+}

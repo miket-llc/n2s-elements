@@ -142,6 +142,18 @@ code {
   justify-content: center;
 }
 
+.main-content {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  background-color: var(--gh-dark-bg);
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 28px;    /* Match titlebar height */
+  margin-bottom: 22px; /* Match statusbar height */
+  padding: 0;
+}
+
 .main-content > * {
   width: 100%;
 }
@@ -322,3 +334,136 @@ code {
 .titlebar-title { color: var(--theme-text); }
 .pane-header { background-color: var(--theme-header); }
 .pane-resizer:hover::after { background-color: var(--theme-accent); }
+
+/* Tree View Styles */
+.tree-item {
+  padding: 1px 0;
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tree-item-header {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  cursor: pointer;
+  color: var(--gh-dark-text);
+}
+
+.tree-item-toggle {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gh-dark-text);
+  transition: transform 0.15s ease;
+}
+
+.tree-item-toggle.expanded {
+  transform: rotate(90deg);
+}
+
+.tree-item-children {
+  padding-left: 20px;
+  /* Remove the border-left */
+  margin-left: 4px;
+}
+
+.tree-item-header:hover {
+  background-color: var(--gh-dark-button-hover);
+}
+
+.tree-item-content {
+  border: 1px solid var(--gh-dark-border);
+  border-radius: 4px;
+  padding: 8px;
+  margin: 4px 0;
+  background-color: var(--gh-dark-header);
+  text-align: left;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+/* Page Tree Styles */
+.tree-item-label {
+  font-size: 12px;
+  padding: 2px 0;
+  text-align: left;
+}
+
+.comment-metadata {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  color: var(--gh-dark-text);
+  opacity: 0.8;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--gh-dark-border);
+  padding-bottom: 4px;
+  text-align: left;
+}
+
+.comment-content {
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  color: var(--gh-dark-text);
+  text-align: left;
+}
+
+.comment-content ul,
+.comment-content ol {
+  margin: 8px 0;
+  padding-left: 24px;
+}
+
+.comment-item {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--gh-dark-border);
+}
+
+.comment-metadata span {
+  margin-right: 8px;
+}
+
+.comment-metadata .edited {
+  font-style: italic;
+}
+
+.edited {
+  color: var(--gh-dark-text);
+  opacity: 0.6;
+}
+
+/* Comment Tree Styles */
+.comment .tree-item-content {
+  border: 1px solid var(--gh-dark-border);
+  border-radius: 4px;
+  padding: 8px;
+  margin: 4px 0;
+  background-color: var(--gh-dark-header);
+}
+
+.pane-content {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.left-content, .right-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
