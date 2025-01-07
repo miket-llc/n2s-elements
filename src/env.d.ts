@@ -12,7 +12,7 @@ interface Window {
 interface TreeNode {
   id: string;
   label: string;
-  isExpanded: boolean;
+  isExpanded?: boolean;
   children?: TreeNode[];
 }
 
@@ -24,6 +24,7 @@ interface CommentNode extends TreeNode {
     edited?: boolean;
     editDate?: string;
     likes?: number;
+    attachments?: number;  // Add attachments support
   };
   children?: CommentNode[];
 }

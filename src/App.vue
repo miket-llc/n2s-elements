@@ -1,5 +1,4 @@
 <script setup lang="ts">
-/// <reference types="../env" />
 import { ref } from 'vue'
 import AppLayout from './components/AppLayout.vue'
 import SplitPane from './components/SplitPane.vue'
@@ -22,16 +21,6 @@ const pages = ref<TreeNode[]>([
           { id: '1.1.1', label: 'System Design' },
           { id: '1.1.2', label: 'Infrastructure' },
           { id: '1.1.3', label: 'Cloud Migration' }
-        ]
-      },
-      { 
-        id: '1.2', 
-        label: 'Development',
-        isExpanded: false,
-        children: [
-          { id: '1.2.1', label: 'Frontend' },
-          { id: '1.2.2', label: 'Backend' },
-          { id: '1.2.3', label: 'Mobile Apps' }
         ]
       }
     ]
@@ -62,33 +51,114 @@ const pages = ref<TreeNode[]>([
 const comments = ref<CommentNode[]>([
   {
     id: 'c1',
-    label: 'Architecture Review',
+    label: 'Architecture Review Discussion',
     author: 'Sarah Chen',
     date: '2024-03-20 14:23',
-    content: `After reviewing the proposed architecture, I have several concerns:
+    content: `Initial architecture review findings:
 
-1. Scalability: Current design limitations
-2. Security: Auth layer specification needed
-3. Performance: Load balancing strategy
-4. Monitoring: Observability improvements`,
+1. Scalability Concerns
+   - Current database design won't handle projected growth
+   - Need to consider sharding strategy
+   - Connection pooling needs optimization
+
+2. Security Considerations
+   - Auth layer needs enhancement
+   - Missing rate limiting
+   - API security audit required`,
     isExpanded: false,
-    metadata: {
-      edited: true,
-      editDate: '2024-03-20 14:25',
-      likes: 8
-    },
-    children: [
-      {
-        id: 'c1.1',
-        label: 'Re: Architecture Review',
-        author: 'Mike Thompson',
-        date: '2024-03-20 15:00',
-        content: 'Agreed on security concerns...',
+    metadata: { edited: true, editDate: '2024-03-20 14:25', likes: 12 },
+    children: [{
+      id: 'c1.1',
+      label: 'Re: Database Sharding',
+      author: 'Mike Thompson',
+      date: '2024-03-20 15:00',
+      content: `Regarding sharding, here's a proposed approach:
+
+\`\`\`sql
+CREATE TABLE users (
+    shard_key BIGINT,
+    user_id UUID,
+    PRIMARY KEY (shard_key, user_id)
+);
+\`\`\``,
+      isExpanded: false,
+      metadata: { likes: 8 },
+      children: [{
+        id: 'c1.1.1',
+        label: 'Sharding Implementation',
+        author: 'Lisa Park',
+        date: '2024-03-20 15:30',
+        content: 'We should consider hot shard detection and rebalancing strategy.',
         isExpanded: false,
-        metadata: { likes: 3 },
-        children: []
-      }
-    ]
+        metadata: { likes: 5 }
+      }]
+    }]
+  },
+  {
+    id: 'c2',
+    label: 'Performance Optimization Required',
+    author: 'David Wilson',
+    date: '2024-03-21 09:15',
+    content: `Latest performance metrics show concerning patterns:
+
+- Query response times > 500ms
+- High CPU utilization during peak hours
+- Memory leaks detected in production
+
+Attached heap dump for analysis.`,
+    isExpanded: true,
+    metadata: { attachments: 2, likes: 15 },
+    children: [{
+      id: 'c2.1',
+      label: 'Memory Leak Investigation',
+      author: 'Maria Garcia',
+      date: '2024-03-21 10:30',
+      content: `Found the source of the memory leak:
+
+\`\`\`typescript
+class ConnectionPool {
+  private connections = [];
+  // Missing cleanup of closed connections
+}
+\`\`\`
+
+Will submit PR with fix today.`,
+      isExpanded: true,
+      metadata: { likes: 10 },
+      children: [{
+        id: 'c2.1.1',
+        label: 'Re: Memory Leak Fix',
+        author: 'Sarah Chen',
+        date: '2024-03-21 11:00',
+        content: 'Good catch. Also suggest adding monitoring...',
+        isExpanded: true,
+        metadata: { likes: 7 }
+      }]
+    }]
+  },
+  {
+    id: 'c3',
+    label: 'UI/UX Feedback Session Notes',
+    author: 'Alex Martinez',
+    date: '2024-03-22 13:00',
+    content: `Key findings from user testing:
+
+1. Navigation issues in mobile view
+2. Inconsistent loading states
+3. Accessibility improvements needed
+
+Full report attached.`,
+    isExpanded: true,
+    metadata: { attachments: 1, likes: 20 },
+    children: [{
+      id: 'c3.1',
+      label: 'Mobile Responsive Design',
+      author: 'Emma Wilson',
+      date: '2024-03-22 14:15',
+      content: 'Here\'s my proposal for mobile navigation...',
+      isExpanded: true,
+      metadata: { likes: 12 }
+    }]
   }
 ])
 
