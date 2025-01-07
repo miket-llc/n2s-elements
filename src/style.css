@@ -337,21 +337,15 @@ code {
 
 /* Tree View Styles */
 .tree-item {
+  position: relative;
   padding: 1px 0;
   text-align: left;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.tree-item-header {
-  display: flex;
-  align-items: center;
-  padding: 2px 4px;
-  cursor: pointer;
-  color: var(--gh-dark-text);
 }
 
 .tree-item-toggle {
+  position: absolute;
+  left: 4px;
+  top: 4px;
   width: 16px;
   height: 16px;
   display: flex;
@@ -359,15 +353,54 @@ code {
   justify-content: center;
   color: var(--gh-dark-text);
   transition: transform 0.15s ease;
+  z-index: 1;
 }
 
 .tree-item-toggle.expanded {
   transform: rotate(90deg);
 }
 
+.tree-item[data-type="comment"] {
+  margin: 8px 0;
+}
+
+.tree-item[data-type="comment"] .tree-item-header {
+  border: 1px solid var(--gh-dark-border);
+  border-radius: 4px;
+  padding: 12px;
+  background-color: var(--gh-dark-header);
+  position: relative;
+}
+
+.tree-item[data-type="comment"] .tree-item-toggle {
+  position: absolute;
+  left: 8px;
+  top: 12px;
+}
+
+.tree-item[data-type="comment"] .tree-item-content {
+  margin-left: 24px;
+}
+
+.tree-item[data-type="comment"] .tree-item-children {
+  padding-left: 24px;
+  margin-top: 8px;
+}
+
+.tree-item[data-type="page"] .tree-item-content {
+  margin-left: 24px;
+  flex: 1;
+  min-width: 0;
+}
+
+.tree-item-content {
+  margin-left: 24px;
+  flex: 1;
+  min-width: 0;
+}
+
 .tree-item-children {
   padding-left: 20px;
-  /* Remove the border-left */
   margin-left: 4px;
 }
 
@@ -375,24 +408,10 @@ code {
   background-color: var(--gh-dark-button-hover);
 }
 
-.tree-item-content {
-  border: 1px solid var(--gh-dark-border);
-  border-radius: 4px;
-  padding: 8px;
-  margin: 4px 0;
-  background-color: var(--gh-dark-header);
-  text-align: left;
-  width: 100%;
-  box-sizing: border-box;
-  max-width: 100%;
-  word-wrap: break-word;
-}
-
-/* Page Tree Styles */
 .tree-item-label {
-  font-size: 12px;
-  padding: 2px 0;
-  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .comment-metadata {

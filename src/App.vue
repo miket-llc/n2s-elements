@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/// <reference types="../env" />
 import { ref } from 'vue'
 import AppLayout from './components/AppLayout.vue'
 import SplitPane from './components/SplitPane.vue'
@@ -57,8 +58,8 @@ const pages = ref<TreeNode[]>([
   }
 ])
 
-// Comments Tree Data with Rich Content
-const comments = ref([
+// Comments Tree Data
+const comments = ref<CommentNode[]>([
   {
     id: 'c1',
     label: 'Architecture Review',
@@ -71,33 +72,25 @@ const comments = ref([
 3. Performance: Load balancing strategy
 4. Monitoring: Observability improvements`,
     isExpanded: false,
-    metadata: { edited: true, editDate: '2024-03-20 14:25', likes: 8 },
+    metadata: {
+      edited: true,
+      editDate: '2024-03-20 14:25',
+      likes: 8
+    },
     children: [
       {
         id: 'c1.1',
         label: 'Re: Architecture Review',
         author: 'Mike Thompson',
         date: '2024-03-20 15:00',
-        content: `Proposed auth improvements:
-- OAuth2/JWT implementation
-- RBAC model
-- Rate limiting
-- Security headers`,
+        content: 'Agreed on security concerns...',
+        isExpanded: false,
         metadata: { likes: 3 },
-        children: [
-          {
-            id: 'c1.1.1',
-            label: 'Re: Security Implementation',
-            author: 'Sarah Chen',
-            date: '2024-03-20 15:30',
-            content: 'Adding MFA requirement for admin access.',
-            metadata: { likes: 2 }
-          }
-        ]
+        children: []
       }
     ]
   }
-]) as CommentNode[]
+])
 
 const handlePageClick = (node: TreeNode) => {
   // Load comments for selected page

@@ -12,9 +12,8 @@ interface Window {
 interface TreeNode {
   id: string;
   label: string;
+  isExpanded: boolean;
   children?: TreeNode[];
-  metadata?: Record<string, any>;
-  isExpanded?: boolean;
 }
 
 interface CommentNode extends TreeNode {
@@ -25,8 +24,8 @@ interface CommentNode extends TreeNode {
     edited?: boolean;
     editDate?: string;
     likes?: number;
-    attachments?: number;
-  }
+  };
+  children?: CommentNode[];
 }
 
 interface TreeViewProps {

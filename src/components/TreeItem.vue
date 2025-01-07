@@ -1,5 +1,5 @@
 <template>
-  <div class="tree-item">
+  <div class="tree-item" :data-type="type">
     <div class="tree-item-header" @click="$emit('node-click', node)">
       <div 
         v-if="hasChildren"
@@ -36,6 +36,7 @@ import { computed } from 'vue'
 
 const props = defineProps<{
   node: TreeNode | CommentNode
+  type?: 'page' | 'comment'
 }>()
 
 const hasChildren = computed(() => 
